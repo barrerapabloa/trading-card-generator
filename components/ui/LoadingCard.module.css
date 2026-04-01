@@ -1,0 +1,70 @@
+.root {
+  width: 100%;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2px;
+  padding: 5px;
+  background: linear-gradient(135deg, #374151, #1f2937);
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 45%,
+    transparent 90%
+  );
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.bar {
+  height: 14px;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 16px 14px 0;
+}
+
+.barShort {
+  height: 10px;
+  width: 55%;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 10px 14px 0;
+}
+
+.art {
+  margin: 0 12px;
+  margin-top: 4px;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.stat {
+  height: 36px;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.06);
+}

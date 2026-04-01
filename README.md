@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Legendex
 
-## Getting Started
+Nickname trading card generator (Next.js App Router). Card stats and copy are generated in the **browser**, so the app can ship as a **static site** on **GitHub Pages**.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Optional: with Cloudflare credentials in `.env.local`, `POST /api/portrait` can generate portrait art in dev (`next dev` / `next start`). That route is **not** available on GitHub Pages; the UI falls back to placeholder art.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to GitHub Pages (own repo)
 
-## Learn More
+1. Create a **new repository** (e.g. `legendex`) and push this project to the `main` branch.
+2. **Settings → Pages → Build and deployment → Source**: choose **GitHub Actions**.
+3. The workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) builds with `STATIC_EXPORT=1` and `BASE_PATH=/<repository-name>` so assets resolve under `https://<user>.github.io/<repo>/`.
+4. After the first successful run, the site URL is shown on the workflow run and under **Settings → Pages**.
 
-To learn more about Next.js, take a look at the following resources:
+**Note:** `BASE_PATH` must match the repository name. If you use a **user site** (`<user>.github.io` with no subpath), set `BASE_PATH` to empty in the workflow and adjust `next.config.ts` accordingly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Manual static build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build:static
+# With project-style base path (replace `legendex` with your repo name):
+STATIC_EXPORT=1 BASE_PATH=/legendex npm run build
+```
 
-## Deploy on Vercel
+Output is in `out/`. `public/.nojekyll` is included so GitHub Pages serves `_next` correctly.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Script          | Description                                      |
+|-----------------|--------------------------------------------------|
+| `npm run dev`   | Development server                               |
+| `npm run build` | Production build (SSR / default)                 |
+| `npm run build:static` | Static export to `out/` (`STATIC_EXPORT=1`) |
