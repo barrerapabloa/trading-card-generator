@@ -38,6 +38,11 @@ export default function Home() {
         setPortraitStatus("ready");
         return;
       }
+      // GitHub Pages / static export: no POST API — keep placeholder art, no error banner.
+      if (process.env.NEXT_PUBLIC_SKIP_PORTRAIT === "1") {
+        setPortraitStatus("idle");
+        return;
+      }
       setPortraitStatus("loading");
       setPortraitError(null);
       try {
@@ -49,8 +54,8 @@ export default function Home() {
         });
 
         if (!res.ok) {
-          // Static / GitHub Pages has no API — show placeholder art.
-          if (res.status === 404) {
+          // Static hosts often return 404/405 for POST — no API, use placeholder art.
+          if (res.status === 404 || res.status === 405) {
             if (!cancelled) setPortraitStatus("idle");
             return;
           }

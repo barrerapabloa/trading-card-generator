@@ -11,7 +11,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Optional: with Cloudflare credentials in `.env.local`, `POST /api/portrait` can generate portrait art in dev (`next dev` / `next start`). That route is **not** available on GitHub Pages; the UI falls back to placeholder art.
+Optional: with Cloudflare credentials in `.env.local`, `POST /api/portrait` can generate portrait art in dev (`next dev` / `next start`). GitHub Pages is static-only, so the build sets **`NEXT_PUBLIC_SKIP_PORTRAIT`** — no portrait request runs and the card shows the placeholder (no red error).
 
 ## Deploy to GitHub Pages (own repo)
 

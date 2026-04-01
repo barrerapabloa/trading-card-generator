@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
   },
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
+    // Static export (e.g. GitHub Pages) has no server — skip portrait API entirely.
+    NEXT_PUBLIC_SKIP_PORTRAIT: isStaticExport ? "1" : "",
   },
   turbopack: {
     // Avoid picking parent folder when multiple package-lock.json exist (e.g. home dir).
